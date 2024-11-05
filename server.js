@@ -1,7 +1,7 @@
 import app from "./app.js"
 import { connectDB } from "./config/database.js"
 // import cloudinary from "cloudinary"
-import RazorPay from "razorpay"
+// import RazorPay from "razorpay"
 import nodeCron from "node-cron"
 import { Stats } from "./models/Stats.js"
 import cors from "cors"
@@ -29,10 +29,10 @@ connectDB()
 //     api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
 // })
 
-export const instance = new RazorPay({
-    key_id: "rzp_test_cSQRF8g2iWxvt7",
-    key_secret: "jwLYzs9crIOhMCk977vB5dMU",
-});
+// export const instance = new RazorPay({
+//     key_id: "rzp_test_cSQRF8g2iWxvt7",
+//     key_secret: "jwLYzs9crIOhMCk977vB5dMU",
+// });
 
 //1st day of every month
 nodeCron.schedule("0 0 0 1 * *", async () => {
