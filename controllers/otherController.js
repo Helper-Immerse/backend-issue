@@ -21,6 +21,14 @@ export const contact = catchAsyncError(async (req, res, next) => {
     });
 });
 
+export const helloC = catchAsyncError(async (req, res, next)=>{
+    console.log("coming here")
+    res.status(200).json({
+        success: true,
+        message: "sucess message"
+    })
+})
+
 export const courseRequest = catchAsyncError(async (req, res, next) => {
     const { name, email, course } = req.body;
     if (!name || !email || !course)
