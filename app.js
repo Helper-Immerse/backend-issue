@@ -26,7 +26,7 @@ app.use(
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "https://frontend-issue-z2wo.vercel.app",
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
     })

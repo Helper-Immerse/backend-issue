@@ -10,7 +10,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url)
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://frontend-issue-z2wo.vercel.app/',
     credentials: true // if you’re using cookies or any credentials
 }));
 
