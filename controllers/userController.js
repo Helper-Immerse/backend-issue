@@ -5,7 +5,7 @@ import { sendToken } from "../utils/sendToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
 import { Course } from "../models/Course.js";
-// import cloudinary from "cloudinary";
+import cloudinary from "cloudinary";
 import getDataUri from "../utils/dataUri.js";
 import { Stats } from "../models/Stats.js";
 
@@ -126,9 +126,9 @@ export const updateprofilepicture = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user._id);
 
     const fileUri = getDataUri(file);
-    // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content, { folder: "elearning" });
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content, { folder: "elearning" });
 
-    // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
     user.avatar = {
         public_id: mycloud.public_id,
@@ -272,7 +272,7 @@ export const deleteUser = catchAsyncError(async (req, res, next) => {
 
     if (!user) return next(new ErrorHandler("User not found", 404));
 
-    // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
     // Cancel Subscription
 
@@ -287,7 +287,7 @@ export const deleteUser = catchAsyncError(async (req, res, next) => {
 export const deleteMyProfile = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user._id);
 
-    // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
     // Cancel Subscription
 

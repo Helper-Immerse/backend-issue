@@ -2,7 +2,7 @@ import { catchAsyncError } from "../middlewares/catchAsyncError.js"
 import { Course } from "../models/Course.js"
 import getDataUri from "../utils/dataUri.js"
 import ErrorHandler from "../utils/errorHandler.js"
-// import cloudinary from "cloudinary"
+import cloudinary from "cloudinary"
 import { Stats } from "../models/Stats.js"
 
 export const getAllCourses = catchAsyncError(async (req, res, next) => {
@@ -34,7 +34,7 @@ export const createCourse = catchAsyncError(async (req, res, next) => {
 
     const fileUri = getDataUri(file)
 
-    // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content, { folder: "elearning", });
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content, { folder: "elearning", });
 
     await Course.create({
         title,
@@ -80,10 +80,10 @@ export const addLecture = catchAsyncError(async (req, res, next) => {
     const file = req.file;
     const fileUri = getDataUri(file);
 
-    // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content, {
-    //     resource_type: "video",
-    //     folder: "elearning"
-    // });
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+        resource_type: "video",
+        folder: "elearning"
+    });
 
     course.lectures.push({
         title,
@@ -111,14 +111,14 @@ export const deleteCourse = catchAsyncError(async (req, res, next) => {
 
     if (!course) return next(new ErrorHandler("Course not found", 404));
 
-    // await cloudinary.v2.uploader.destroy(course.poster.public_id);
+    await cloudinary.v2.uploader.destroy(course.poster.public_id);
 
     for (let i = 0; i < course.lectures.length; i++) {
         const singleLecture = course.lectures[i];
-    //     await cloudinary.v2.uploader.destroy(singleLecture.video.public_id, {
-    //         resource_type: "video",
-    //     });
-    // }
+        await cloudinary.v2.uploader.destroy(singleLecture.video.public_id, {
+            resource_type: "video",
+        });
+    }
 
     await course.remove();
 
@@ -137,9 +137,9 @@ export const deleteLecture = catchAsyncError(async (req, res, next) => {
     const lecture = course.lectures.find((item) => {
         if (item._id.toString() === lectureId.toString()) return item;
     });
-    // await cloudinary.v2.uploader.destroy(lecture.video.public_id, {
-    //     resource_type: "video",
-    // });
+    await cloudinary.v2.uploader.destroy(lecture.video.public_id, {
+        resource_type: "video",
+    });
 
     course.lectures = course.lectures.filter((item) => {
         if (item._id.toString() !== lectureId.toString()) return item;
