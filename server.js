@@ -4,15 +4,15 @@ import { connectDB } from "./config/database.js"
 // import RazorPay from "razorpay"
 // import nodeCron from "node-cron"
 import { Stats } from "./models/Stats.js"
-import cors from "cors"
+// import cors from "cors"
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url)
 
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true // if you’re using cookies or any credentials
-}));
+// app.use(cors({
+//     origin: 'http://localhost:3000',
+//     credentials: true // if you’re using cookies or any credentials
+// }));
 
 //Accessing .env variable using Dotenv
 if (process.env.NODE_ENV !== "PRODUCTION") {
