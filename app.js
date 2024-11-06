@@ -16,7 +16,7 @@ import cors from "cors"
 
 const app = express()
 
-// Using Middlewares
+// Using Middlewares//
 app.use(express.json());
 app.use(
     express.urlencoded({
